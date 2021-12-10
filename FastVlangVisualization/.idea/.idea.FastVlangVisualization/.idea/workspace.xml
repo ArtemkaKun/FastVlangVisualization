@@ -10,7 +10,11 @@
   <component name="ChangeListManager">
     <list default="true" id="27b09a66-3cc4-4f7b-af88-e28fbadbe41e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FastVlangVisualization/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FastVlangVisualization/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FastVlangVisualization.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FastVlangVisualization.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataGrabSystem/FastVlangWebPageDataGrabber.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataGrabSystem/FastVlangWebPageDataGrabber.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataGrabSystem/IDataGrabber.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataGrabSystem/IDataGrabber.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataGrabSystem/IPerformanceMeasureUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataGrabSystem/IPerformanceMeasureUnit.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/FastVlangVisualization.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/FastVlangVisualization.csproj.AssemblyReference.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +52,7 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
+      <browser name="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
       <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
       <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
       <option name="SEND_DEBUG_REQUEST" value="1" />
@@ -71,6 +76,10 @@
         <option name="Build" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue=".NET Launch Settings Profile.FastVlangVisualization" />
+      <item itemvalue=".NET Launch Settings Profile.FastVlangVisualization: IIS Express" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -80,7 +89,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1639161887228</updated>
-      <workItem from="1639161892999" duration="1616000" />
+      <workItem from="1639161892999" duration="7774000" />
     </task>
     <servers />
   </component>
