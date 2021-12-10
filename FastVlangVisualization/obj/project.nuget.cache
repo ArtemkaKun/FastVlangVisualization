@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "QoMuDkkopHA2Leq7AXcwjoOJxl4cIYGior4nSKX+lkMv1PICCo9FasJkv7ih1x/L1O3Q78WOnKwz7uW1kQ7r5Q==",
+  "dgSpecHash": "fOKK593D1o7mmME8AVba7IrZ4cgeIn6ZfwZJlX0DJUqauWHzUuxqKxrDsDriy0MH2m4RNK5479asU+raeCZFeQ==",
   "success": true,
   "projectFilePath": "/home/yuart/Projects/FastVlangVisualization/FastVlangVisualization/FastVlangVisualization.csproj",
   "expectedPackageFiles": [
+    "/home/yuart/.nuget/packages/htmlagilitypack/1.11.39/htmlagilitypack.1.11.39.nupkg.sha512",
     "/home/yuart/.nuget/packages/microsoft.aspnetcore.authorization/6.0.0/microsoft.aspnetcore.authorization.6.0.0.nupkg.sha512",
     "/home/yuart/.nuget/packages/microsoft.aspnetcore.components/6.0.0/microsoft.aspnetcore.components.6.0.0.nupkg.sha512",
     "/home/yuart/.nuget/packages/microsoft.aspnetcore.components.analyzers/6.0.0/microsoft.aspnetcore.components.analyzers.6.0.0.nupkg.sha512",
