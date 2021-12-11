@@ -6,6 +6,11 @@ public class MemoryPerformanceMeasureUnit : BasePerformanceMeasureUnit
 	
 	protected override int NormalizeNumericalValue (int numericalValue)
 	{
+		if (RawValue.Contains("KB", StringComparison.OrdinalIgnoreCase) == true)
+		{
+			return numericalValue;
+		}
+
 		return 0;
 	}
 }
