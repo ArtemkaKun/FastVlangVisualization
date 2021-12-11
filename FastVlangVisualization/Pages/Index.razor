@@ -13,33 +13,29 @@
 }
 else
 {
-    <div >
-        <RadzenChart>
-            <RadzenLineSeries Smooth="false" Data="@TestData" CategoryProperty="Timestamp" Title="Name" ValueProperty="PerformanceResultNumericValue">
-                <RadzenMarkers MarkerType="MarkerType.None"/>
-            </RadzenLineSeries>
-            <RadzenCategoryAxis Padding="20" FormatString="{0:dd/MM/y}"/>
-            <RadzenValueAxis>
-                <RadzenGridLines Visible="true"/>
-            </RadzenValueAxis>
-        </RadzenChart>
-    </div>
+    @foreach ((string? testName, List<IPerformanceTestData>? testResults) in VlangTestsDataProcessor.GroupedTestResultsMap)
+    {
+        <div >
+            <RadzenChart>
+                <RadzenLineSeries Smooth="false" Data="@testResults" CategoryProperty="Timestamp" Title="@testName" ValueProperty="PerformanceResultNumericValue">
+                    <RadzenMarkers MarkerType="MarkerType.None"/>
+                </RadzenLineSeries>
+                <RadzenCategoryAxis Padding="20" FormatString="{0:dd/MM/y}"/>
+                <RadzenValueAxis>
+                    <RadzenGridLines Visible="true"/>
+                </RadzenValueAxis>
+            </RadzenChart>
+        </div>
+    }
 }
 
 @code {
-    private List<IPerformanceTestData> TestData => GetVToCCompileTime();
-
     private IDataProcessor VlangTestsDataProcessor { get; set; }
 
     protected override async Task OnInitializedAsync ()
     {
         List<IPerformanceTestData> testResultsData = await new FastVlangWebPageDataGrabber("https://fast.vlang.io/").GetVlangSpeedDataAsync();
         VlangTestsDataProcessor = new VlangDataProcessor(testResultsData);
-    }
-
-    private List<IPerformanceTestData> GetVToCCompileTime ()
-    {
-        return VlangTestsDataProcessor.GroupedTestResultsMap["v -o v.c"];
     }
 
 }
