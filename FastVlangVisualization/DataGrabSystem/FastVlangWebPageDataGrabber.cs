@@ -7,12 +7,10 @@ namespace FastVlangVisualization.DataGrabSystem;
 public class FastVlangWebPageDataGrabber : IDataGrabber
 {
 	private string FastVlangWebPageAddress { get; }
-	private int ExpectedTableColumnsCount { get; }
 
-	public FastVlangWebPageDataGrabber (string fastVlangWebPageAddress, int expectedTableColumnsCount)
+	public FastVlangWebPageDataGrabber (string fastVlangWebPageAddress)
 	{
 		FastVlangWebPageAddress = fastVlangWebPageAddress;
-		ExpectedTableColumnsCount = expectedTableColumnsCount;
 	}
 
 	public async Task<List<IVlangPerformanceTestData>> GetVlangSpeedDataAsync ()
@@ -36,12 +34,12 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 		using IEnumerator<HtmlNode> testResultsTableCells = htmlDocument.DocumentNode.Descendants("tr").GetEnumerator();
 
 		testResultsTableCells.MoveNext();
+		HtmlNode[] tableHeaderNodes = testResultsTableCells.Current.ChildNodes.Where(node => node.Name == "td").ToArray();
+		string[] tableHeaders = new string[tableHeaderNodes.Length];
 
-		string[] tableHeaders = new string[ExpectedTableColumnsCount];
-
-		for (int headerIndex = 0; headerIndex < ExpectedTableColumnsCount; headerIndex++)
+		for (int headerIndex = 0; headerIndex < tableHeaderNodes.Length; headerIndex++)
 		{
-			tableHeaders[headerIndex] = testResultsTableCells.Current.ChildNodes.Where(node => node.Name == "td").ToList()[headerIndex].InnerText;
+			tableHeaders[headerIndex] = tableHeaderNodes[headerIndex].InnerText;
 		}
 
 		List<IVlangPerformanceTestData> data = new();

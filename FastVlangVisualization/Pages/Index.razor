@@ -28,7 +28,7 @@ else
 
 @code {
     bool staff = false;
-    private IDataGrabber DataGrabber { get; } = new FastVlangWebPageDataGrabber("https://fast.vlang.io/", 14);
+    private IDataGrabber DataGrabber { get; } = new FastVlangWebPageDataGrabber("https://fast.vlang.io/");
     private List<IVlangPerformanceTestData> PerformanceData { get; set; }
     List<IVlangPerformanceTestData> TestData => GetVToCCompileTime();
 
