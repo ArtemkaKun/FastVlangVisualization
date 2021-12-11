@@ -9,7 +9,7 @@ public static class NumberRegexHelper
 	public static bool TryGetNumberFromString (string stringWithNumber, out int number)
 	{
 		number = 0;
-		string regexMatchString = new Regex("[0-9]*").Match(stringWithNumber).Value;
+		string regexMatchString = RegexInstance.Match(stringWithNumber).Value;
 
 		return int.TryParse(regexMatchString, out number) == true;
 	}
