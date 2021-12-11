@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using FastVlangVisualization.DataGrabSystem
+@using FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem
 
 <PageTitle>Index</PageTitle>
 
@@ -28,16 +29,16 @@ else
 @code {
     bool staff = false;
     private IDataGrabber DataGrabber { get; } = new FastVlangWebPageDataGrabber("https://fast.vlang.io/", 14);
-    private List<IVlangSpeedData> PerformanceData { get; set; }
-    List<IVlangSpeedData> TestData => GetVToCCompileTime();
+    private List<IVlangPerformanceTestData> PerformanceData { get; set; }
+    List<IVlangPerformanceTestData> TestData => GetVToCCompileTime();
 
     protected override async Task OnInitializedAsync ()
     {
         PerformanceData = await DataGrabber.GetVlangSpeedDataAsync();
     }
 
-    protected List<IVlangSpeedData> GetVToCCompileTime ()
+    protected List<IVlangPerformanceTestData> GetVToCCompileTime ()
     {
-        return PerformanceData.Where(test => test.TestName == "v -o v.c").ToList();
+        return PerformanceData.Where(test => test.Name == "v -o v.c").ToList();
     }
 }

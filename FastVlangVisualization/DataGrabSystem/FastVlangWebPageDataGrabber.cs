@@ -1,3 +1,4 @@
+using FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem;
 using FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem.PerformanceMeasureUnitSystem;
 using HtmlAgilityPack;
 
@@ -14,7 +15,7 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 		ExpectedTableColumnsCount = expectedTableColumnsCount;
 	}
 
-	public async Task<List<IVlangSpeedData>> GetVlangSpeedDataAsync ()
+	public async Task<List<IVlangPerformanceTestData>> GetVlangSpeedDataAsync ()
 	{
 		string webPageContent = await GetWebPageContent();
 		return ParseWebPageContent(webPageContent);
@@ -27,7 +28,7 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 		return await webClient.GetStringAsync(FastVlangWebPageAddress);
 	}
 
-	private List<IVlangSpeedData> ParseWebPageContent (string webPageContent)
+	private List<IVlangPerformanceTestData> ParseWebPageContent (string webPageContent)
 	{
 		HtmlDocument htmlDocument = new();
 		htmlDocument.LoadHtml(webPageContent);
@@ -43,9 +44,9 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 			tableHeaders[headerIndex] = testResultsTableCells.Current.ChildNodes.Where(node => node.Name == "td").ToList()[headerIndex].InnerText;
 		}
 
-		List<IVlangSpeedData> data = new();
+		List<IVlangPerformanceTestData> data = new();
 		const int expectedTestsResultsCellsCount = 11;
-		List<VlangSpeedData> testsDataBuffer = new(expectedTestsResultsCellsCount);
+		List<VlangPerformanceTestData> testsDataBuffer = new(expectedTestsResultsCellsCount);
 
 		while (testResultsTableCells.MoveNext() == true)
 		{
@@ -53,7 +54,7 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 
 			for (int testIndex = 0; testIndex < expectedTestsResultsCellsCount; testIndex++)
 			{
-				VlangSpeedData newData = new();
+				VlangPerformanceTestData newData = new();
 				newData.SetTestName(tableHeaders[testIndex + 3]);
 				testsDataBuffer.Add(newData);
 			}
