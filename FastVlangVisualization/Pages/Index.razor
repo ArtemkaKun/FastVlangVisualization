@@ -18,8 +18,11 @@ else
             <RadzenLineSeries Smooth="false" Data="@TestData" CategoryProperty="Timestamp" Title="Name" ValueProperty="PerformanceResultNumericValue">
                 <RadzenMarkers MarkerType="MarkerType.None"/>
             </RadzenLineSeries>
+            <RadzenCategoryAxis Padding="20" FormatString="{0:dd/MM/y}"/>
+            <RadzenValueAxis>
+                <RadzenGridLines Visible="true"/>
+            </RadzenValueAxis>
         </RadzenChart>
-        <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}"/>
     </div>
 }
 
