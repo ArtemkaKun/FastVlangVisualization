@@ -1,10 +1,11 @@
 ﻿@page "/"
 @using FastVlangVisualization.DataGrabSystem
 @using FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem
+@using FastVlangVisualization.DataProcessorSystem
 
 <PageTitle>Index</PageTitle>
 
-@if (PerformanceData == null || PerformanceData.Count == 0)
+@if (VlangTestsDataProcessor == null)
 {
     <p>
         <em>Loading...</em>
@@ -12,32 +13,30 @@
 }
 else
 {
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 my-5">
-                <RadzenChart>
-                    <RadzenLineSeries Smooth="false" Data="@TestData" CategoryProperty="Timestamp" Title="Name" ValueProperty="PerformanceResultNumericValue">
-                        <RadzenMarkers MarkerType="MarkerType.None"/>
-                    </RadzenLineSeries>
-                </RadzenChart>
-                <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}" />
-            </div>
-        </div>
+    <div >
+        <RadzenChart>
+            <RadzenLineSeries Smooth="false" Data="@TestData" CategoryProperty="Timestamp" Title="Name" ValueProperty="PerformanceResultNumericValue">
+                <RadzenMarkers MarkerType="MarkerType.None"/>
+            </RadzenLineSeries>
+        </RadzenChart>
+        <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}"/>
     </div>
 }
 
 @code {
-    private IDataGrabber DataGrabber { get; } = new FastVlangWebPageDataGrabber("https://fast.vlang.io/");
-    private List<IPerformanceTestData> PerformanceData { get; set; }
-    List<IPerformanceTestData> TestData => GetVToCCompileTime();
+    private List<IPerformanceTestData> TestData => GetVToCCompileTime();
+
+    private IDataProcessor VlangTestsDataProcessor { get; set; }
 
     protected override async Task OnInitializedAsync ()
     {
-        PerformanceData = await DataGrabber.GetVlangSpeedDataAsync();
+        List<IPerformanceTestData> testResultsData = await new FastVlangWebPageDataGrabber("https://fast.vlang.io/").GetVlangSpeedDataAsync();
+        VlangTestsDataProcessor = new VlangDataProcessor(testResultsData);
     }
 
-    protected List<IPerformanceTestData> GetVToCCompileTime ()
+    private List<IPerformanceTestData> GetVToCCompileTime ()
     {
-        return PerformanceData.Where(test => test.Name == "v -o v.c").ToList();
+        return VlangTestsDataProcessor.GroupedTestResultsMap["v -o v.c"];
     }
+
 }
