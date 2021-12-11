@@ -1,6 +1,6 @@
 namespace FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem;
 
-public interface IVlangPerformanceTestData
+public interface IPerformanceTestData
 {
 	string Name { get; }
 	DateTime Timestamp { get; }

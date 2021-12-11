@@ -4,5 +4,5 @@ namespace FastVlangVisualization.DataGrabSystem;
 
 public interface IDataGrabber
 {
-	Task<List<IVlangPerformanceTestData>> GetVlangSpeedDataAsync ();
+	Task<List<IPerformanceTestData>> GetVlangSpeedDataAsync ();
 }

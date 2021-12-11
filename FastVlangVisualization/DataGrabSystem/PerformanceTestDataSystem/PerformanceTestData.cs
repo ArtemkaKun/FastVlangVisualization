@@ -2,7 +2,7 @@ using FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem.Performanc
 
 namespace FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem;
 
-public class VlangPerformanceTestData : IVlangPerformanceTestData
+public class PerformanceTestData : IPerformanceTestData
 {
 	public int PerformanceResultNumericValue => PerformanceResult.NumericalValue;
 

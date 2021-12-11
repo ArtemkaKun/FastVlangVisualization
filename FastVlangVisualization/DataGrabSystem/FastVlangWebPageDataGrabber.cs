@@ -20,7 +20,7 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 		FastVlangWebPageAddress = fastVlangWebPageAddress;
 	}
 
-	public async Task<List<IVlangPerformanceTestData>> GetVlangSpeedDataAsync ()
+	public async Task<List<IPerformanceTestData>> GetVlangSpeedDataAsync ()
 	{
 		string webPageContent = await GetWebPageContent();
 
@@ -34,7 +34,7 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 		return await webClient.GetStringAsync(FastVlangWebPageAddress);
 	}
 
-	private List<IVlangPerformanceTestData> ParseWebPageContent (string webPageContent)
+	private List<IPerformanceTestData> ParseWebPageContent (string webPageContent)
 	{
 		HtmlNode[] testResultsTableRows = GetPerformanceResultsTableRows(webPageContent);
 		string[] tableHeaders = GetTableHeaders(testResultsTableRows[0]);
@@ -42,11 +42,11 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 		return GetPerformanceDataCollection(testResultsTableRows, tableHeaders);
 	}
 
-	private List<IVlangPerformanceTestData> GetPerformanceDataCollection (IReadOnlyList<HtmlNode> testResultsTableRows, IReadOnlyList<string> tableHeaders)
+	private List<IPerformanceTestData> GetPerformanceDataCollection (IReadOnlyList<HtmlNode> testResultsTableRows, IReadOnlyList<string> tableHeaders)
 	{
-		List<IVlangPerformanceTestData> vlangPerformanceTestDataCollection = new();
+		List<IPerformanceTestData> vlangPerformanceTestDataCollection = new();
 		int expectedTestsCount = tableHeaders.Count - EXPECTED_SERVICE_DATA_CELLS_COUNT;
-		List<VlangPerformanceTestData> vlangPerformanceTestDataBuffer = new(expectedTestsCount);
+		List<PerformanceTestData> vlangPerformanceTestDataBuffer = new(expectedTestsCount);
 
 		for (int rowIndex = 1; rowIndex < testResultsTableRows.Count; rowIndex++)
 		{
@@ -64,7 +64,7 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 
 			for (int dataIndex = 0; dataIndex < expectedTestsCount; dataIndex++)
 			{
-				VlangPerformanceTestData newData = new();
+				PerformanceTestData newData = new();
 				newData.SetTestName(tableHeaders[dataIndex + EXPECTED_SERVICE_DATA_CELLS_COUNT]);
 				InsertServiceData(newData, tableCellsNodes);
 				vlangPerformanceTestDataBuffer.Add(newData);
@@ -98,14 +98,14 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 		return testResultsTableRow.ChildNodes.Where(node => node.Name == TABLE_CELL_HTML_ATTRIBUTE).ToArray();
 	}
 
-	private void InsertServiceData (VlangPerformanceTestData newData, IReadOnlyList<HtmlNode> tableCellsNodes)
+	private void InsertServiceData (PerformanceTestData newData, IReadOnlyList<HtmlNode> tableCellsNodes)
 	{
 		newData.SetTimestamp(DateTime.Parse(tableCellsNodes[0].InnerText));
 		newData.SetCommitID(tableCellsNodes[1].InnerText);
 		newData.SetCommitMessage(tableCellsNodes[2].InnerText);
 	}
 
-	private void InsertPerformanceResults (IReadOnlyList<HtmlNode> tableCellsNodes, IReadOnlyList<VlangPerformanceTestData> vlangPerformanceTestDataBuffer)
+	private void InsertPerformanceResults (IReadOnlyList<HtmlNode> tableCellsNodes, IReadOnlyList<PerformanceTestData> vlangPerformanceTestDataBuffer)
 	{
 		for (int cellIndex = EXPECTED_SERVICE_DATA_CELLS_COUNT; cellIndex < tableCellsNodes.Count; cellIndex++)
 		{

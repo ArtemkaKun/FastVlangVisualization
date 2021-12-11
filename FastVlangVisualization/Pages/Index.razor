@@ -16,7 +16,7 @@ else
         <div class="row">
             <div class="col-sm-12 my-5">
                 <RadzenChart>
-                    <RadzenLineSeries Smooth="@staff" Data="@TestData" CategoryProperty="Timestamp" Title="Name" ValueProperty="PerformanceResultNumericValue">
+                    <RadzenLineSeries Smooth="false" Data="@TestData" CategoryProperty="Timestamp" Title="Name" ValueProperty="PerformanceResultNumericValue">
                         <RadzenMarkers MarkerType="MarkerType.None"/>
                     </RadzenLineSeries>
                 </RadzenChart>
@@ -27,17 +27,16 @@ else
 }
 
 @code {
-    bool staff = false;
     private IDataGrabber DataGrabber { get; } = new FastVlangWebPageDataGrabber("https://fast.vlang.io/");
-    private List<IVlangPerformanceTestData> PerformanceData { get; set; }
-    List<IVlangPerformanceTestData> TestData => GetVToCCompileTime();
+    private List<IPerformanceTestData> PerformanceData { get; set; }
+    List<IPerformanceTestData> TestData => GetVToCCompileTime();
 
     protected override async Task OnInitializedAsync ()
     {
         PerformanceData = await DataGrabber.GetVlangSpeedDataAsync();
     }
 
-    protected List<IVlangPerformanceTestData> GetVToCCompileTime ()
+    protected List<IPerformanceTestData> GetVToCCompileTime ()
     {
         return PerformanceData.Where(test => test.Name == "v -o v.c").ToList();
     }
