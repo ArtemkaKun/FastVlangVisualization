@@ -4,7 +4,7 @@ namespace FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem;
 
 public class VlangPerformanceTestData : IVlangPerformanceTestData
 {
-	public int NumValue => PerformanceResult.NumericalValue;
+	public int PerformanceResultNumericValue => PerformanceResult.NumericalValue;
 
 	public string Name { get; private set; }
 	public DateTime Timestamp { get; private set; }

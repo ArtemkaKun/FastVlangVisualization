@@ -6,5 +6,5 @@ public interface IVlangPerformanceTestData
 	DateTime Timestamp { get; }
 	string CommitID { get; }
 	string CommitMessage { get; }
-	int NumValue { get; }
+	int PerformanceResultNumericValue { get; }
 }
