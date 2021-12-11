@@ -2,16 +2,19 @@ namespace FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem.Perfor
 
 public abstract class BasePerformanceMeasureUnit : IPerformanceMeasureUnit
 {
+	public int NumericalValue { get; }
+	
 	protected string RawValue { get; }
 
 	protected BasePerformanceMeasureUnit (string rawValue)
 	{
 		RawValue = rawValue;
+		NumericalValue = GetNumericalValue();
 	}
 
 	protected abstract int NormalizeNumericalValue (int numericalValue);
-	
-	public int GetNumericalValue ()
+
+	private int GetNumericalValue ()
 	{
 		if (NumberRegexHelper.TryGetNumberFromString(RawValue, out int numericalValue) == true)
 		{

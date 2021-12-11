@@ -9,7 +9,7 @@ public class VlangSpeedData : IVlangSpeedData
 	public string CommitID { get; set; }
 	public string CommitMessage { get; set; }
 	public IPerformanceMeasureUnit PerformanceResult { get; set; }
-	public int NumValue => PerformanceResult.GetNumericalValue();
+	public int NumValue => PerformanceResult.NumericalValue;
 
 	public void SetTestName (string testName)
 	{

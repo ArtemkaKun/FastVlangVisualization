@@ -2,5 +2,5 @@ namespace FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem.Perfor
 
 public interface IPerformanceMeasureUnit
 {
-	int GetNumericalValue ();
+	int NumericalValue { get; }
 }

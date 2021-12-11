@@ -12,6 +12,6 @@ public class PerformanceTestDataSystemTests
 		string testRawValue = $"{testNumber} ms";
 		IPerformanceMeasureUnit testPerformanceUnit = new TimePerformanceMeasureUnit(testRawValue);
 		
-		Assert.IsTrue(testNumber == testPerformanceUnit.GetNumericalValue());
+		Assert.IsTrue(testNumber == testPerformanceUnit.NumericalValue);
 	}
 }
