@@ -24,4 +24,14 @@ public class PerformanceTestDataSystemTests
 		
 		Assert.IsTrue(testNumber == testPerformanceUnit.NumericalValue);
 	}
+	
+	[Test]
+	public void CreateLinesPerformanceUnit_GetNumericalValueReturnsExpectedValue_True ()
+	{
+		int testNumber = 256;
+		string testRawValue = $"{testNumber}"; //TODO to const
+		IPerformanceMeasureUnit testPerformanceUnit = new LinesPerformanceMeasureUnit(testRawValue);
+		
+		Assert.IsTrue(testNumber == testPerformanceUnit.NumericalValue);
+	}
 }

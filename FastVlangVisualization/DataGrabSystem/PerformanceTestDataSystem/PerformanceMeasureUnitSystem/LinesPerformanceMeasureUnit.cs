@@ -6,6 +6,6 @@ public class LinesPerformanceMeasureUnit : BasePerformanceMeasureUnit
 	
 	protected override int NormalizeNumericalValue (int numericalValue)
 	{
-		return 0;
+		return numericalValue;
 	}
 }
