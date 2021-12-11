@@ -6,5 +6,5 @@ public interface IPerformanceTestData
 	DateTime Timestamp { get; }
 	string CommitID { get; }
 	string CommitMessage { get; }
-	int PerformanceResultNumericValue { get; }
+	int? PerformanceResultNumericValue { get; }
 }
