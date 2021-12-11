@@ -13,9 +13,15 @@
         "packagesPath": "/home/yuart/.nuget/packages/",
         "outputPath": "/home/yuart/Projects/FastVlangVisualization/FastVlangVisualization/obj/",
         "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/yuart/.nuget/NuGet/NuGet.Config"
+        ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",

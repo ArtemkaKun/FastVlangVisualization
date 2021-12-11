@@ -824,3 +824,4 @@
 /home/yuart/Projects/FastVlangVisualization/FastVlangVisualization/bin/Debug/net6.0/System.Linq.Dynamic.Core.dll
 /home/yuart/Projects/FastVlangVisualization/FastVlangVisualization/obj/Debug/net6.0/build-gz/LOd6dNvH.gz
 /home/yuart/Projects/FastVlangVisualization/FastVlangVisualization/obj/Debug/net6.0/build-gz/YmoWvfvh.gz
+/home/yuart/Projects/FastVlangVisualization/FastVlangVisualization/bin/Debug/net6.0/global.json

@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastVlangVisualization", "FastVlangVisualization.csproj", "{34BC71C8-BD4C-40DA-A6F7-0C75AF817495}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "..\Tests\Tests.csproj", "{D818E88A-30A4-4061-AAB4-65854685DD25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{34BC71C8-BD4C-40DA-A6F7-0C75AF817495}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34BC71C8-BD4C-40DA-A6F7-0C75AF817495}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34BC71C8-BD4C-40DA-A6F7-0C75AF817495}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D818E88A-30A4-4061-AAB4-65854685DD25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D818E88A-30A4-4061-AAB4-65854685DD25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D818E88A-30A4-4061-AAB4-65854685DD25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D818E88A-30A4-4061-AAB4-65854685DD25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
