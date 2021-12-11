@@ -1,15 +1,10 @@
-namespace FastVlangVisualization.DataGrabSystem;
+namespace FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem.PerformanceMeasureUnitSystem;
 
-public class MemoryPerformanceMeasureUnit : IPerformanceMeasureUnit
+public class MemoryPerformanceMeasureUnit : BasePerformanceMeasureUnit
 {
-	private string Value { get; }
-
-	public MemoryPerformanceMeasureUnit (string value)
-	{
-		Value = value;
-	}
-
-	public int GetNumericalValue ()
+	public MemoryPerformanceMeasureUnit (string rawValue) : base(rawValue) { }
+	
+	protected override int ConvertRawValueToNumerical ()
 	{
 		return 0;
 	}

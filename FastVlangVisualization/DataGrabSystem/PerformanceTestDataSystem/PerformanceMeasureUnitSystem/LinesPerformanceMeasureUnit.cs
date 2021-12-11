@@ -1,8 +1,8 @@
 namespace FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem.PerformanceMeasureUnitSystem;
 
-public class TimePerformanceMeasureUnit : BasePerformanceMeasureUnit
+public class LinesPerformanceMeasureUnit : BasePerformanceMeasureUnit
 {
-	public TimePerformanceMeasureUnit (string rawValue) : base(rawValue) { }
+	public LinesPerformanceMeasureUnit (string rawValue) : base(rawValue) { }
 	
 	protected override int ConvertRawValueToNumerical ()
 	{

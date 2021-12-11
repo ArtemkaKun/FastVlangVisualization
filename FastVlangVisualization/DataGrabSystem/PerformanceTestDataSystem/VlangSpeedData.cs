@@ -1,3 +1,5 @@
+using FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem.PerformanceMeasureUnitSystem;
+
 namespace FastVlangVisualization.DataGrabSystem;
 
 public class VlangSpeedData : IVlangSpeedData

@@ -1,3 +1,4 @@
+using FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem.PerformanceMeasureUnitSystem;
 using HtmlAgilityPack;
 
 namespace FastVlangVisualization.DataGrabSystem;
@@ -98,7 +99,7 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 					}
 					else
 					{
-						resultsUnit = new LinesPerSecondsPerformanceMeasureUnit(cellText);
+						resultsUnit = new LinesPerformanceMeasureUnit(cellText);
 					}
 
 					testsDataBuffer[cellIndex - 3].SetPerformanceResult(resultsUnit);

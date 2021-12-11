@@ -1,4 +1,4 @@
-namespace FastVlangVisualization.DataGrabSystem;
+namespace FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem.PerformanceMeasureUnitSystem;
 
 public interface IPerformanceMeasureUnit
 {
