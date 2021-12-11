@@ -1,7 +1,7 @@
 # Common IntelliJ Platform excludes
 
 # User specific
-**/.idea/**/workspace.xml
+**/**/.idea/**/workspace.xml
 **/.idea/**/tasks.xml
 **/.idea/shelf/*
 **/.idea/dictionaries
@@ -24,7 +24,7 @@
 *.suo
 *.user
 .vs/
-[Bb]in/
+*/[Bb]in/
 [Oo]bj/
 _UpgradeReport_Files/
 [Pp]ackages/
@@ -294,3 +294,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+FastVlangVisualization/bin/

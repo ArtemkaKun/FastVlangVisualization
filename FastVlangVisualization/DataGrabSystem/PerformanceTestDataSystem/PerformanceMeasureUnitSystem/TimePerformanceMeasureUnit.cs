@@ -1,16 +1,14 @@
-using System.Text.RegularExpressions;
-
 namespace FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem.PerformanceMeasureUnitSystem;
 
 public class TimePerformanceMeasureUnit : BasePerformanceMeasureUnit
 {
 	public TimePerformanceMeasureUnit (string rawValue) : base(rawValue) { }
 	
-	protected override int ConvertRawValueToNumerical ()
+	protected override int NormalizeNumericalValue (int numericalValue)
 	{
 		if (RawValue.Contains("ms", StringComparison.OrdinalIgnoreCase) == true)
 		{
-			return int.Parse(new Regex("[0-9]*").Match(RawValue).Value);
+			return numericalValue;
 		}
 		
 		return 0;
