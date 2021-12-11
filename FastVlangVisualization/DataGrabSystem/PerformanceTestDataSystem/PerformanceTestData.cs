@@ -10,7 +10,6 @@ public class PerformanceTestData : IPerformanceTestData
 	public DateTime Timestamp { get; private set; }
 	public string CommitID { get; private set; }
 	public string CommitMessage { get; private set; }
-
 	private IPerformanceMeasureUnit? PerformanceResult { get; set; }
 
 	public void SetTestName (string name)
@@ -36,5 +35,10 @@ public class PerformanceTestData : IPerformanceTestData
 	public void SetPerformanceResult (IPerformanceMeasureUnit performanceResult)
 	{
 		PerformanceResult = performanceResult;
+	}
+
+	public string? FormatValue (object value)
+	{
+		return PerformanceResult?.FormatValue(value);
 	}
 }

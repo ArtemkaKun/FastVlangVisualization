@@ -21,7 +21,7 @@ else
                     <RadzenMarkers MarkerType="MarkerType.None"/>
                 </RadzenLineSeries>
                 <RadzenCategoryAxis Padding="20" FormatString="{0:dd/MM/y}"/>
-                <RadzenValueAxis>
+                <RadzenValueAxis Formatter="@testResults[0].FormatValue">
                     <RadzenGridLines Visible="true"/>
                 </RadzenValueAxis>
             </RadzenChart>
@@ -37,5 +37,4 @@ else
         List<IPerformanceTestData> testResultsData = await new FastVlangWebPageDataGrabber("https://fast.vlang.io/").GetVlangSpeedDataAsync();
         VlangTestsDataProcessor = new VlangDataProcessor(testResultsData);
     }
-
 }

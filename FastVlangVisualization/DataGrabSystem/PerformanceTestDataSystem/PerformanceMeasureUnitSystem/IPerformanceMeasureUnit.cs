@@ -3,4 +3,6 @@ namespace FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem.Perfor
 public interface IPerformanceMeasureUnit
 {
 	int NumericalValue { get; }
+	
+	string FormatValue (object value);
 }

@@ -7,4 +7,6 @@ public interface IPerformanceTestData
 	string CommitID { get; }
 	string CommitMessage { get; }
 	int? PerformanceResultNumericValue { get; }
+
+	string? FormatValue (object value);
 }
