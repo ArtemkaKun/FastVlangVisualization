@@ -2,11 +2,12 @@ namespace FastVlangVisualization.DataGrabSystem;
 
 public class VlangSpeedData : IVlangSpeedData
 {
-	private string TestName { get; set; }
-	private DateTime Timestamp { get; set; }
-	private string CommitID { get; set; }
-	private string CommitMessage { get; set; }
-	private IPerformanceMeasureUnit PerformanceResult { get; set; }
+	public string TestName { get; set; }
+	public DateTime Timestamp { get; set; }
+	public string CommitID { get; set; }
+	public string CommitMessage { get; set; }
+	public IPerformanceMeasureUnit PerformanceResult { get; set; }
+	public int NumValue => PerformanceResult.GetNumericalValue();
 
 	public void SetTestName (string testName)
 	{

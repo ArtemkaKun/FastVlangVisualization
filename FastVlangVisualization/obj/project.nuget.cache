@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "fOKK593D1o7mmME8AVba7IrZ4cgeIn6ZfwZJlX0DJUqauWHzUuxqKxrDsDriy0MH2m4RNK5479asU+raeCZFeQ==",
+  "dgSpecHash": "mWzd5SY9ggyodIrvPSMtbxBEnAH6mmepm87ttMvYwFDFKd8jIAn57yX0BmuYSXocRFL8qxEVjLs+yvGBNKX5hg==",
   "success": true,
   "projectFilePath": "/home/yuart/Projects/FastVlangVisualization/FastVlangVisualization/FastVlangVisualization.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,7 @@
     "/home/yuart/.nuget/packages/microsoft.aspnetcore.components.webassembly/6.0.0/microsoft.aspnetcore.components.webassembly.6.0.0.nupkg.sha512",
     "/home/yuart/.nuget/packages/microsoft.aspnetcore.components.webassembly.devserver/6.0.0/microsoft.aspnetcore.components.webassembly.devserver.6.0.0.nupkg.sha512",
     "/home/yuart/.nuget/packages/microsoft.aspnetcore.metadata/6.0.0/microsoft.aspnetcore.metadata.6.0.0.nupkg.sha512",
+    "/home/yuart/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/home/yuart/.nuget/packages/microsoft.extensions.configuration/6.0.0/microsoft.extensions.configuration.6.0.0.nupkg.sha512",
     "/home/yuart/.nuget/packages/microsoft.extensions.configuration.abstractions/6.0.0/microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
     "/home/yuart/.nuget/packages/microsoft.extensions.configuration.binder/6.0.0/microsoft.extensions.configuration.binder.6.0.0.nupkg.sha512",
@@ -29,8 +30,10 @@
     "/home/yuart/.nuget/packages/microsoft.extensions.primitives/6.0.0/microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "/home/yuart/.nuget/packages/microsoft.jsinterop/6.0.0/microsoft.jsinterop.6.0.0.nupkg.sha512",
     "/home/yuart/.nuget/packages/microsoft.jsinterop.webassembly/6.0.0/microsoft.jsinterop.webassembly.6.0.0.nupkg.sha512",
+    "/home/yuart/.nuget/packages/radzen.blazor/3.13.5/radzen.blazor.3.13.5.nupkg.sha512",
     "/home/yuart/.nuget/packages/system.diagnostics.diagnosticsource/6.0.0/system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
     "/home/yuart/.nuget/packages/system.io.pipelines/6.0.0/system.io.pipelines.6.0.0.nupkg.sha512",
+    "/home/yuart/.nuget/packages/system.linq.dynamic.core/1.2.12/system.linq.dynamic.core.1.2.12.nupkg.sha512",
     "/home/yuart/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "/home/yuart/.nuget/packages/system.text.encodings.web/6.0.0/system.text.encodings.web.6.0.0.nupkg.sha512",
     "/home/yuart/.nuget/packages/system.text.json/6.0.0/system.text.json.6.0.0.nupkg.sha512",

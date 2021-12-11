@@ -2,6 +2,7 @@ namespace FastVlangVisualization.DataGrabSystem;
 
 public class TimePerformanceMeasureUnit : IPerformanceMeasureUnit
 {
+	public int NumValue => GetNumericalValue();
 	private string Value { get; }
 
 	public TimePerformanceMeasureUnit (string value)
@@ -11,6 +12,6 @@ public class TimePerformanceMeasureUnit : IPerformanceMeasureUnit
 
 	public int GetNumericalValue ()
 	{
-		return 0;
+		return int.Parse(Value.Replace("ms", ""));
 	}
 }

@@ -35,9 +35,9 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 
 		testResultsTableCells.MoveNext();
 
-		string[] tableHeaders = new string[14];
+		string[] tableHeaders = new string[ExpectedTableColumnsCount];
 
-		for (int headerIndex = 0; headerIndex < 14; headerIndex++)
+		for (int headerIndex = 0; headerIndex < ExpectedTableColumnsCount; headerIndex++)
 		{
 			tableHeaders[headerIndex] = testResultsTableCells.Current.ChildNodes.Where(node => node.Name == "td").ToList()[headerIndex].InnerText;
 		}

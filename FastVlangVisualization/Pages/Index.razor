@@ -1,9 +1,43 @@
 ﻿@page "/"
+@using FastVlangVisualization.DataGrabSystem
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+@if (PerformanceData == null || PerformanceData.Count == 0)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 my-5">
+                <RadzenChart>
+                    <RadzenLineSeries Smooth="@staff" Data="@TestData" CategoryProperty="Timestamp" Title="test" ValueProperty="NumValue">
+                        <RadzenMarkers MarkerType="MarkerType.None"/>
+                    </RadzenLineSeries>
+                </RadzenChart>
+                <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}" />
+            </div>
+        </div>
+    </div>
+}
 
-Welcome to your new app.
+@code {
+    bool staff = false;
+    private IDataGrabber DataGrabber { get; } = new FastVlangWebPageDataGrabber("https://fast.vlang.io/", 14);
+    private List<IVlangSpeedData> PerformanceData { get; set; }
+    List<IVlangSpeedData> TestData => GetVToCCompileTime();
 
-<SurveyPrompt Title="How is Blazor working for you?"/>
+    protected override async Task OnInitializedAsync ()
+    {
+        PerformanceData = await DataGrabber.GetVlangSpeedDataAsync();
+    }
+
+    protected List<IVlangSpeedData> GetVToCCompileTime ()
+    {
+        return PerformanceData.Where(test => test.TestName == "v -o v.c").ToList();
+    }
+}
