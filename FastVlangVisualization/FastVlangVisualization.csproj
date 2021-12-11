@@ -13,4 +13,8 @@
         <PackageReference Include="Radzen.Blazor" Version="3.13.5" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Tests\DataGrabSystemTests" />
+    </ItemGroup>
+
 </Project>
