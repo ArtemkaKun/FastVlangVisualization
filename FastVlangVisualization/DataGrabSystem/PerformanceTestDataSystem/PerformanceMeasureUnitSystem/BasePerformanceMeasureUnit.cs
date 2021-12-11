@@ -2,7 +2,7 @@ namespace FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem.Perfor
 
 public abstract class BasePerformanceMeasureUnit : IPerformanceMeasureUnit
 {
-	private string RawValue { get; }
+	protected string RawValue { get; }
 
 	protected BasePerformanceMeasureUnit (string rawValue)
 	{
