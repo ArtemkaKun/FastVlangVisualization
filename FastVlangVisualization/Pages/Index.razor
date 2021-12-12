@@ -5,7 +5,7 @@
 
 <PageTitle>Index</PageTitle>
 
-@if (VlangTestsDataProcessor == null)
+@if (VlangTestsDataProcessor == null || TestDataDaysRangeMap == null)
 {
     <p>
         <em>Loading...</em>
@@ -15,9 +15,9 @@ else
 {
     @foreach ((string? testName, List<IPerformanceTestData>? testResults) in VlangTestsDataProcessor.GroupedTestResultsMap)
     {
-        <div >
+        <div>
             <RadzenChart>
-                <RadzenLineSeries Smooth="false" Data="@testResults" CategoryProperty="Timestamp" Title="@testName" ValueProperty="PerformanceResultNumericValue">
+                <RadzenLineSeries Smooth="false" Data="@testResults.Where(testData => testData.Timestamp.Date >= TestDataDaysRangeMap[testName][0] && testData.Timestamp.Date <= TestDataDaysRangeMap[testName][1])" CategoryProperty="Timestamp" Title="@testName" ValueProperty="PerformanceResultNumericValue">
                     <RadzenMarkers MarkerType="MarkerType.None"/>
                 </RadzenLineSeries>
                 <RadzenCategoryAxis Padding="20" FormatString="{0:dd/MM/y}"/>
@@ -25,16 +25,36 @@ else
                     <RadzenGridLines Visible="true"/>
                 </RadzenValueAxis>
             </RadzenChart>
+
+            <div>
+                <RadzenCard>
+                    <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][0] DateFormat="dd/MM/y"/>
+                    <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][1] DateFormat="dd/MM/y"/>
+                </RadzenCard>
+            </div>
         </div>
     }
 }
 
 @code {
     private IDataProcessor VlangTestsDataProcessor { get; set; }
+    private Dictionary<string, DateTime[]> TestDataDaysRangeMap { get; set; }
 
     protected override async Task OnInitializedAsync ()
     {
         List<IPerformanceTestData> testResultsData = await new FastVlangWebPageDataGrabber("https://fast.vlang.io/").GetVlangSpeedDataAsync();
         VlangTestsDataProcessor = new VlangDataProcessor(testResultsData);
+
+        TestDataDaysRangeMap = new Dictionary<string, DateTime[]>(VlangTestsDataProcessor.GroupedTestResultsMap.Count);
+
+        foreach ((string? testName, List<IPerformanceTestData>? testResults) in VlangTestsDataProcessor.GroupedTestResultsMap)
+        {
+            DateTime[] sortedTestDates = testResults.OrderBy(testData => testData.Timestamp.Date).Select(testData => testData.Timestamp.Date).ToArray();
+            TestDataDaysRangeMap.Add(testName, new[]
+            {
+                sortedTestDates[0].Date, sortedTestDates[^1].Date
+            });
+        }
     }
+
 }
