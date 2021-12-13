@@ -1,0 +1,36 @@
+@page "/rangeBookmarkPage"
+
+@using FastVlangVisualization.RangeBookmarksSystem
+
+@inject Blazored.LocalStorage.ISyncLocalStorageService LocalStorage
+
+<div>
+    <RadzenCard>
+        @if (IsNoBookmarksInCollection == false)
+        {
+            <RadzenDropDown AllowClear="true" TValue="string" Data="@GetBookmarksNameRelatedToTest()"/>
+            <RadzenButton Text="Select"/>
+        }
+        
+        <b></b>
+        
+        <RadzenButton Icon="add_circle_outline" ButtonStyle="ButtonStyle.Success"/>
+    </RadzenCard>
+</div>
+
+@code {
+    [Parameter]
+    public string BookmarksCollectionName { get; set; }
+    
+    private bool IsNoBookmarksInCollection { get; set; }
+
+    protected override void OnInitialized ()
+    {
+        IsNoBookmarksInCollection = LocalStorage.ContainKey(BookmarksCollectionName) == false;
+    }
+    
+    private IEnumerable<string> GetBookmarksNameRelatedToTest ()
+    {
+        return LocalStorage.GetItem<IRangeBookmark[]>(BookmarksCollectionName).Select(bookmark => bookmark.Name);
+    }
+}
