@@ -3,6 +3,7 @@
 @using FastVlangVisualization.DataGrabSystem
 @using FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem
 @using FastVlangVisualization.DataProcessorSystem
+@using FastVlangVisualization.ProgressSystem
 
 <style>
     header h1 {
@@ -22,6 +23,10 @@
     
     main {
         margin: 5% 1%;
+    }
+    
+    main h4 {
+        text-align: center;
     }
     
     footer {
@@ -55,67 +60,93 @@
 <header>
     <img src="images/v-logo.png" alt="Vlang main logo"/>
     <h1>Vlang Benchmarks Visualizations</h1>
-    <h3>Interactive plots, based on the data from the <a href="https://fast.vlang.io/" target="_blank"><em>Is V still fast?</em></a> page</h3>
+    <h3>
+        Interactive plots, based on the data from the
+        <a href="https://fast.vlang.io/" target="_blank">
+            <em>Is V still fast?</em>
+        </a> page
+    </h3>
 </header>
 
 <main>
-    @* @if (VlangTestsDataProcessor == null || TestDataDaysRangeMap == null) *@
-    @* { *@
-    @*     <p> *@
-    @*         <em>Loading...</em> *@
-    @*     </p> *@
-    @* } *@
-    @* else *@
-    @* { *@
-    @*     @foreach ((string? testName, List<IPerformanceTestData>? testResults) in VlangTestsDataProcessor.GroupedTestResultsMap) *@
-    @*     { *@
-    @*         <div> *@
-    @*             <RadzenChart> *@
-    @*                 <RadzenLineSeries Smooth="false" Data="@testResults.Where(testData => testData.Timestamp.Date >= TestDataDaysRangeMap[testName][0] && testData.Timestamp.Date <= TestDataDaysRangeMap[testName][1])" CategoryProperty="Timestamp" Title="@testName" ValueProperty="PerformanceResultNumericValue"> *@
-    @*                     <RadzenMarkers MarkerType="MarkerType.None"/> *@
-    @*                 </RadzenLineSeries> *@
-    @*                 <RadzenCategoryAxis Padding="20" FormatString="{0:dd/MM/y}"/> *@
-    @*                 <RadzenValueAxis Formatter="@testResults[0].FormatValue"> *@
-    @*                     <RadzenGridLines Visible="true"/> *@
-    @*                 </RadzenValueAxis> *@
-    @*             </RadzenChart> *@
-    @* *@
-    @*             <div> *@
-    @*                 <RadzenCard> *@
-    @*                     <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][0] DateFormat="dd/MM/y"/> *@
-    @*                     <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][1] DateFormat="dd/MM/y"/> *@
-    @*                 </RadzenCard> *@
-    @*             </div> *@
-    @*         </div> *@
-    @*     } *@
-    @* } *@
+    @switch (LoadingStatus)
+    {
+        case VlangBenchmarksPlotsLoadingStatus.PARSING_TEST_RESULTS:
+            <div>
+                <h4>Parsing test results from origin</h4>
+            </div>
+            break;
+        case VlangBenchmarksPlotsLoadingStatus.PROCESSING_TEST_RESULTS:
+            <div>
+                <h4>Processing test results</h4>
+            </div>
+            break;
+        case VlangBenchmarksPlotsLoadingStatus.PREPARING_PLOTS_DATA:
+            <div>
+                <h4>Preparing data for plots</h4>
+            </div>
+            break;
+        case VlangBenchmarksPlotsLoadingStatus.READY:
+            foreach ((string? testName, List<IPerformanceTestData>? testResults) in VlangTestsDataProcessor.GroupedTestResultsMap)
+            {
+                <RadzenCard>
+                    <RadzenChart>
+                        <RadzenLineSeries Smooth="false" Data="@testResults.Where(testData => testData.Timestamp.Date >= TestDataDaysRangeMap[testName][0] && testData.Timestamp.Date <= TestDataDaysRangeMap[testName][1])" CategoryProperty="Timestamp" Title="@testName" ValueProperty="PerformanceResultNumericValue">
+                            <RadzenMarkers MarkerType="MarkerType.None"/>
+                        </RadzenLineSeries>
+                        <RadzenCategoryAxis Padding="20" FormatString="{0:dd/MM/y}"/>
+                        <RadzenValueAxis Formatter="@testResults[0].FormatValue">
+                            <RadzenGridLines Visible="true"/>
+                        </RadzenValueAxis>
+                    </RadzenChart>
+
+                    <div>
+                        <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][0] DateFormat="dd/MM/y"/>
+                        <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][1] DateFormat="dd/MM/y"/>
+                    </div>
+               </RadzenCard>
+            }
+            break;
+    }
 </main>
 
 <footer>
     <div>
-    <img src="images/v-logo.png" alt="Vlang main logo"/>
-    <p>logo by <a href="https://github.com/sonovice/" target="_blank">Sonovice</a> and <a href="https://github.com/donnisnoni/" target="_blank">Don</a>.</p>
+        <img src="images/v-logo.png" alt="Vlang main logo"/>
+        <p>logo by <a href="https://github.com/sonovice/" target="_blank">Sonovice</a> and <a href="https://github.com/donnisnoni/" target="_blank">Don</a>.</p>
     </div>
 </footer>
 
 @code {
     private IDataProcessor VlangTestsDataProcessor { get; set; }
     private Dictionary<string, DateTime[]> TestDataDaysRangeMap { get; set; }
+    private VlangBenchmarksPlotsLoadingStatus LoadingStatus { get; set; }
 
     protected override async Task OnInitializedAsync ()
     {
-        List<IPerformanceTestData> testResultsData = await new FastVlangWebPageDataGrabber("https://fast.vlang.io/").GetVlangSpeedDataAsync();
-        VlangTestsDataProcessor = new VlangDataProcessor(testResultsData);
+        await GetTestsData();
+        PreparePlotRanges();
+        LoadingStatus = VlangBenchmarksPlotsLoadingStatus.READY;
+    }
 
+    private async Task GetTestsData ()
+    {
+        LoadingStatus = VlangBenchmarksPlotsLoadingStatus.PARSING_TEST_RESULTS;
+        List<IPerformanceTestData> testResultsData = await new FastVlangWebPageDataGrabber("https://fast.vlang.io/").GetVlangSpeedDataAsync();
+
+        LoadingStatus = VlangBenchmarksPlotsLoadingStatus.PROCESSING_TEST_RESULTS;
+        VlangTestsDataProcessor = new VlangDataProcessor(testResultsData);
+    }
+
+    private void PreparePlotRanges ()
+    {
+        LoadingStatus = VlangBenchmarksPlotsLoadingStatus.PREPARING_PLOTS_DATA;
         TestDataDaysRangeMap = new Dictionary<string, DateTime[]>(VlangTestsDataProcessor.GroupedTestResultsMap.Count);
 
         foreach ((string? testName, List<IPerformanceTestData>? testResults) in VlangTestsDataProcessor.GroupedTestResultsMap)
         {
             DateTime[] sortedTestDates = testResults.OrderBy(testData => testData.Timestamp.Date).Select(testData => testData.Timestamp.Date).ToArray();
-            TestDataDaysRangeMap.Add(testName, new[]
-            {
-                sortedTestDates[0].Date, sortedTestDates[^1].Date
-            });
+            TestDataDaysRangeMap.Add(testName, new[] {sortedTestDates[0].Date, sortedTestDates[^1].Date});
         }
     }
 
