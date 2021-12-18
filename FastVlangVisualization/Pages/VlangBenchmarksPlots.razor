@@ -1,0 +1,122 @@
+﻿@page "/"
+
+@using FastVlangVisualization.DataGrabSystem
+@using FastVlangVisualization.DataGrabSystem.PerformanceTestDataSystem
+@using FastVlangVisualization.DataProcessorSystem
+
+<style>
+    header h1 {
+        text-align: center;
+    }
+    
+    header h3 {
+        text-align: center;
+    }
+    
+    header img {
+        width: 30%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto; 
+    }
+    
+    main {
+        margin: 5% 1%;
+    }
+    
+    footer {
+        height: 5%;
+        width: auto;
+        text-align: center;
+    }
+    
+    footer div {
+        width: fit-content;
+        display: inline-block;
+    }
+    
+    footer a {
+        font-style: italic;
+    }
+    
+    footer img {
+        width: 2%;
+        display: inline;
+        object-fit: contain;
+    }
+    
+    footer p {
+        display: inline;
+    }
+</style>
+
+<PageTitle>VlangBenchmarksPlots</PageTitle>
+
+<header>
+    <img src="images/v-logo.png" alt="Vlang main logo"/>
+    <h1>Vlang Benchmarks Visualizations</h1>
+    <h3>Interactive plots, based on the data from the <a href="https://fast.vlang.io/" target="_blank"><em>Is V still fast?</em></a> page</h3>
+</header>
+
+<main>
+    @* @if (VlangTestsDataProcessor == null || TestDataDaysRangeMap == null) *@
+    @* { *@
+    @*     <p> *@
+    @*         <em>Loading...</em> *@
+    @*     </p> *@
+    @* } *@
+    @* else *@
+    @* { *@
+    @*     @foreach ((string? testName, List<IPerformanceTestData>? testResults) in VlangTestsDataProcessor.GroupedTestResultsMap) *@
+    @*     { *@
+    @*         <div> *@
+    @*             <RadzenChart> *@
+    @*                 <RadzenLineSeries Smooth="false" Data="@testResults.Where(testData => testData.Timestamp.Date >= TestDataDaysRangeMap[testName][0] && testData.Timestamp.Date <= TestDataDaysRangeMap[testName][1])" CategoryProperty="Timestamp" Title="@testName" ValueProperty="PerformanceResultNumericValue"> *@
+    @*                     <RadzenMarkers MarkerType="MarkerType.None"/> *@
+    @*                 </RadzenLineSeries> *@
+    @*                 <RadzenCategoryAxis Padding="20" FormatString="{0:dd/MM/y}"/> *@
+    @*                 <RadzenValueAxis Formatter="@testResults[0].FormatValue"> *@
+    @*                     <RadzenGridLines Visible="true"/> *@
+    @*                 </RadzenValueAxis> *@
+    @*             </RadzenChart> *@
+    @* *@
+    @*             <div> *@
+    @*                 <RadzenCard> *@
+    @*                     <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][0] DateFormat="dd/MM/y"/> *@
+    @*                     <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][1] DateFormat="dd/MM/y"/> *@
+    @*                 </RadzenCard> *@
+    @*             </div> *@
+    @*         </div> *@
+    @*     } *@
+    @* } *@
+</main>
+
+<footer>
+    <div>
+    <img src="images/v-logo.png" alt="Vlang main logo"/>
+    <p>logo by <a href="https://github.com/sonovice/" target="_blank">Sonovice</a> and <a href="https://github.com/donnisnoni/" target="_blank">Don</a>.</p>
+    </div>
+</footer>
+
+@code {
+    private IDataProcessor VlangTestsDataProcessor { get; set; }
+    private Dictionary<string, DateTime[]> TestDataDaysRangeMap { get; set; }
+
+    protected override async Task OnInitializedAsync ()
+    {
+        List<IPerformanceTestData> testResultsData = await new FastVlangWebPageDataGrabber("https://fast.vlang.io/").GetVlangSpeedDataAsync();
+        VlangTestsDataProcessor = new VlangDataProcessor(testResultsData);
+
+        TestDataDaysRangeMap = new Dictionary<string, DateTime[]>(VlangTestsDataProcessor.GroupedTestResultsMap.Count);
+
+        foreach ((string? testName, List<IPerformanceTestData>? testResults) in VlangTestsDataProcessor.GroupedTestResultsMap)
+        {
+            DateTime[] sortedTestDates = testResults.OrderBy(testData => testData.Timestamp.Date).Select(testData => testData.Timestamp.Date).ToArray();
+            TestDataDaysRangeMap.Add(testName, new[]
+            {
+                sortedTestDates[0].Date, sortedTestDates[^1].Date
+            });
+        }
+    }
+
+}
