@@ -29,10 +29,21 @@
         text-align: center;
     }
     
+    main .plotContainer {
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+    
+    main .plotRangePickerContainer {
+        text-align: center;
+        margin-top: 2%;
+    }
+    
     footer {
         height: 5%;
         width: auto;
         text-align: center;
+        margin-bottom: 1%;
     }
     
     footer div {
@@ -89,7 +100,7 @@
         case VlangBenchmarksPlotsLoadingStatus.READY:
             foreach ((string? testName, List<IPerformanceTestData>? testResults) in VlangTestsDataProcessor.GroupedTestResultsMap)
             {
-                <RadzenCard>
+                <RadzenCard class="plotContainer">
                     <RadzenChart>
                         <RadzenLineSeries Smooth="false" Data="@testResults.Where(testData => testData.Timestamp.Date >= TestDataDaysRangeMap[testName][0] && testData.Timestamp.Date <= TestDataDaysRangeMap[testName][1])" CategoryProperty="Timestamp" Title="@testName" ValueProperty="PerformanceResultNumericValue">
                             <RadzenMarkers MarkerType="MarkerType.None"/>
@@ -100,7 +111,7 @@
                         </RadzenValueAxis>
                     </RadzenChart>
 
-                    <div>
+                    <div class="plotRangePickerContainer">
                         <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][0] DateFormat="dd/MM/y"/>
                         <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][1] DateFormat="dd/MM/y"/>
                     </div>
