@@ -113,8 +113,8 @@
                     </RadzenChart>
 
                     <div class="plotRangePickerContainer">
-                        <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][0] DateFormat="dd/MM/y"/>
-                        <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][1] DateFormat="dd/MM/y"/>
+                        <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][0] DateFormat="dd/MM/y" YearRange="@GetDataYearRange(testResults)"/>
+                        <RadzenDatePicker @bind-Value=@TestDataDaysRangeMap[testName][1] DateFormat="dd/MM/y" YearRange="@GetDataYearRange(testResults)"/>
                     </div>
                </RadzenCard>
             }
@@ -160,6 +160,13 @@
             DateTime[] sortedTestDates = testResults.OrderBy(testData => testData.Timestamp.Date).Select(testData => testData.Timestamp.Date).ToArray();
             TestDataDaysRangeMap.Add(testName, new[] {sortedTestDates[0].Date, sortedTestDates[^1].Date});
         }
+    }
+
+    private string GetDataYearRange (IEnumerable<IPerformanceTestData> testDataCollection)
+    {
+        DateTime[] sortedTestDates = testDataCollection.OrderBy(testData => testData.Timestamp.Date).Select(testData => testData.Timestamp.Date).ToArray();
+
+        return $"{sortedTestDates[0].Year}:{sortedTestDates[^1].Year}";
     }
 
 }
