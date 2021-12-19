@@ -36,13 +36,13 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 
 	private List<IPerformanceTestData> ParseWebPageContent (string webPageContent)
 	{
-		HtmlNode[] testResultsTableRows = GetPerformanceResultsTableRows(webPageContent);
+		HtmlNodeCollection testResultsTableRows = GetPerformanceResultsTableRows(webPageContent);
 		string[] tableHeaders = GetTableHeaders(testResultsTableRows[0]);
 
 		return GetPerformanceDataCollection(testResultsTableRows, tableHeaders);
 	}
 
-	private List<IPerformanceTestData> GetPerformanceDataCollection (IReadOnlyList<HtmlNode> testResultsTableRows, IReadOnlyList<string> tableHeaders)
+	private List<IPerformanceTestData> GetPerformanceDataCollection (HtmlNodeCollection testResultsTableRows, IReadOnlyList<string> tableHeaders)
 	{
 		List<IPerformanceTestData> vlangPerformanceTestDataCollection = new();
 		int expectedTestsCount = tableHeaders.Count - EXPECTED_SERVICE_DATA_CELLS_COUNT;
@@ -72,12 +72,12 @@ public class FastVlangWebPageDataGrabber : IDataGrabber
 		}
 	}
 
-	private HtmlNode[] GetPerformanceResultsTableRows (string webPageContent)
+	private HtmlNodeCollection GetPerformanceResultsTableRows (string webPageContent)
 	{
 		HtmlDocument htmlDocument = new();
 		htmlDocument.LoadHtml(webPageContent);
 
-		return htmlDocument.DocumentNode.Descendants(TABLE_ROW_HTML_ATTRIBUTE).ToArray();
+		return htmlDocument.DocumentNode.SelectNodes($"//{TABLE_ROW_HTML_ATTRIBUTE}");
 	}
 
 	private string[] GetTableHeaders (HtmlNode testResultsTableRow)
