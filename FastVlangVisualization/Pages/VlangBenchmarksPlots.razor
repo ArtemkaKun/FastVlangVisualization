@@ -170,18 +170,18 @@
 
     protected override async Task OnInitializedAsync ()
     {
-        await GetTestsData();
-        PreparePlotRanges();
-        LoadingStatus = VlangBenchmarksPlotsLoadingStatus.READY;
-    }
-
-    private async Task GetTestsData ()
-    {
         LoadingStatus = VlangBenchmarksPlotsLoadingStatus.PARSING_TEST_RESULTS;
         List<IPerformanceTestData> testResultsData = await new FastVlangWebPageDataGrabber("https://fast.vlang.io/").GetVlangSpeedDataAsync();
 
         LoadingStatus = VlangBenchmarksPlotsLoadingStatus.PROCESSING_TEST_RESULTS;
         VlangTestsDataProcessor = new VlangDataProcessor(testResultsData);
+        await Task.Yield();
+
+        PreparePlotRanges();
+        await Task.Yield();
+
+        LoadingStatus = VlangBenchmarksPlotsLoadingStatus.READY;
+        await Task.Yield();
     }
 
     private void PreparePlotRanges ()
