@@ -194,7 +194,7 @@
             DateTime[] sortedTestDates = testResults.OrderBy(testData => testData.Timestamp.Date).Select(testData => testData.Timestamp.Date).ToArray();
             TestDataDaysRangeMap.Add(testName, new[]
             {
-                sortedTestDates[0].Date, sortedTestDates[^1].Date
+                sortedTestDates[^1].Date.AddMonths(-2), sortedTestDates[^1].Date
             });
         }
     }
